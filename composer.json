@@ -3,6 +3,7 @@
     "description": "DHL SDK",
     "type": "library",
     "license": "MIT",
+    "version": "0.6",
     "authors": [
         {
             "name": "Peter Dragicevic",

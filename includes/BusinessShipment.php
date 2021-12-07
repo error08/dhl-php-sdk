@@ -48,7 +48,7 @@ class BusinessShipment extends Version {
 	/**
 	 * Newest-Version
 	 */
-	const NEWEST_VERSION = '3.0';
+	const NEWEST_VERSION = '3.1';
 
 	/**
 	 * Response-Type URL
@@ -282,6 +282,7 @@ class BusinessShipment extends Version {
 	 * @param null|string $version - Version to use or null for the newest
 	 */
 	public function __construct($credentials, $testMode = false, $version = null) {
+
 		// Set Version
 		if($version === null)
 			$version = self::NEWEST_VERSION;
