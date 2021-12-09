@@ -875,7 +875,8 @@ class BusinessShipment extends Version {
 		$auth_params = array(
 			'user' => $this->getCredentials()->getUser(),
 			'signature' => $this->getCredentials()->getSignature(),
-			'type' => 0
+			'type' => 0,
+			'SOAPAction' => "urn:createShipmentOrder"
 		);
 
 		return new SoapHeader(self::DHL_SOAP_HEADER_URI, 'Authentification', $auth_params);
@@ -885,26 +886,17 @@ class BusinessShipment extends Version {
 	 * Builds the Soap-Client
 	 */
 	private function buildSoapClient() {
-		$header = $this->buildAuthHeader();
-
 		if($this->isTest())
 			$location = self::DHL_SANDBOX_URL;
 		else
 			$location = self::DHL_PRODUCTION_URL;
 
-		$auth_params = array(
-			'login' => $this->getCredentials()->getApiUser(),
-			'password' => $this->getCredentials()->getApiPassword(),
-			'location' => $location,
-			'trace' => 1,
-			'soap_version' => SOAP_1_1,
-			'stream_context' => stream_context_create(array(
-				'ssl' => array('crypto_method' =>  STREAM_CRYPTO_METHOD_TLSv1_2_CLIENT),
-			)),
-		);
+		$headers = array();
+		$headers[] = $this->buildAuthHeader();
+		$headers[] = new SoapHeader(self::DHL_SOAP_HEADER_URI, 'SOAPAction', 'urn:createShipmentOrder');
 
-		$this->setSoapClient(new SoapClient($this->getAPIUrl(), $auth_params));
-		$this->getSoapClient()->__setSoapHeaders($header);
+		$this->setSoapClient(new SoapClient($this->getAPIUrl(), array('login' => $this->getCredentials()->getApiUser(), 'password' => $this->getCredentials()->getApiPassword())));
+		$this->getSoapClient()->__setSoapHeaders($headers);
 	}
 
 	/**
