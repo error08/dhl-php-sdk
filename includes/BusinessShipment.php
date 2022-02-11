@@ -26,11 +26,6 @@ use stdClass;
  */
 class BusinessShipment extends Version {
 	/**
-	 * DHL Origin WSDL-Lib-URL
-	 */
-	const DHL_WSDL_LIB_URL = 'https://cig.dhl.de/cig-wsdls/com/dpdhl/wsdl/geschaeftskundenversand-api/';
-
-	/**
 	 * DHL-Soap-Header URL
 	 */
 	const DHL_SOAP_HEADER_URI = 'http://dhl.de/webservice/cisbase';
@@ -48,7 +43,7 @@ class BusinessShipment extends Version {
 	/**
 	 * Newest-Version
 	 */
-	const NEWEST_VERSION = '3.1';
+	const NEWEST_VERSION = '3.2';
 
 	/**
 	 * Response-Type URL
@@ -265,13 +260,6 @@ class BusinessShipment extends Version {
 	private $labelFormat = null;
 
 	/**
-	 * Custom-WSDL-File URL
-	 *
-	 * @var null|string $customAPIURL - Custom-API URL (null uses default from DHL)
-	 */
-	private $customAPIURL = null;
-
-	/**
 	 * BusinessShipment constructor.
 	 *
 	 * @param Credentials $credentials - DHL-Credentials-Object
@@ -313,11 +301,7 @@ class BusinessShipment extends Version {
 	 * @return string - Business-API-URL
 	 */
 	protected function getAPIUrl() {
-		// Use own API-URL if set
-		if($this->getCustomAPIURL() !== null)
-			return $this->getCustomAPIURL();
-
-		return self::DHL_WSDL_LIB_URL . $this->getVersion() . '/geschaeftskundenversand-api-' . $this->getVersion() . '.wsdl';
+		return '../lib/' . $this->getVersion() . '/geschaeftskundenversand-api-' . $this->getVersion() . '.wsdl';
 	}
 
 	/**
@@ -411,30 +395,6 @@ class BusinessShipment extends Version {
 	}
 
 	/**
-	 * Returns if log is enabled
-	 *
-	 * @return bool - Log enabled
-	 *
-	 * @deprecated - Removed Log-Function
-	 */
-	public function isLog() {
-		Deprecated::methodIsDeprecated(__METHOD__, __CLASS__, 'Logging has been removed');
-
-		return false;
-	}
-
-	/**
-	 * Set if log enabled
-	 *
-	 * @param bool $log - Enable log
-	 *
-	 * @deprecated - Removed Log-Function
-	 */
-	public function setLog($log) {
-		Deprecated::methodIsDeprecated(__METHOD__, __CLASS__, 'Logging has been removed');
-	}
-
-	/**
 	 * Get Credentials-Object
 	 *
 	 * @return Credentials - Credentials-Object
@@ -450,298 +410,6 @@ class BusinessShipment extends Version {
 	 */
 	public function setCredentials($credentials) {
 		$this->credentials = $credentials;
-	}
-
-	/**
-	 * Get Shipment-Details-Object
-	 *
-	 * @return ShipmentDetails - Shipment-Details-Object
-	 *
-	 * @deprecated - These details belong to the `ShipmentOrder` Object, please do them there
-	 * @see ShipmentOrder
-	 */
-	public function getShipmentDetails() {
-		Deprecated::methodIsDeprecated(__METHOD__, __CLASS__, Deprecated::BUSINESS_SHIPMENT_BIG_FIELD_DEPRECATION_REASON);
-
-		return $this->shipmentDetails;
-	}
-
-	/**
-	 * Set Shipment-Details-Object
-	 *
-	 * @param ShipmentDetails $shipmentDetails - Shipment-Details-Object
-	 *
-	 * @deprecated - These details belong to the `ShipmentOrder` Object, please do them there
-	 * @see ShipmentOrder
-	 */
-	public function setShipmentDetails($shipmentDetails) {
-		Deprecated::methodIsDeprecated(__METHOD__, __CLASS__, Deprecated::BUSINESS_SHIPMENT_BIG_FIELD_DEPRECATION_REASON);
-
-		$this->shipmentDetails = $shipmentDetails;
-	}
-
-	/**
-	 * Get the Service-Object
-	 *
-	 * @return Service|null - Service-Object or null if none
-	 *
-	 * @deprecated - These details belong to the `ShipmentDetails` Object, please do them there
-	 * @see ShipmentOrder - Which includes ShipmentDetails
-	 * @see ShipmentDetails
-	 */
-	public function getService() {
-		Deprecated::methodIsDeprecated(__METHOD__, __CLASS__, Deprecated::BUSINESS_SHIPMENT_BIG_FIELD_DEPRECATION_REASON);
-
-		return $this->service;
-	}
-
-	/**
-	 * Set the Service-Object
-	 *
-	 * @param Service|null $service - Service-Object or null for none
-	 *
-	 * @deprecated - These details belong to the `ShipmentDetails` Object, please do them there
-	 * @see ShipmentOrder - Which includes ShipmentDetails
-	 * @see ShipmentDetails
-	 */
-	public function setService($service) {
-		Deprecated::methodIsDeprecated(__METHOD__, __CLASS__, Deprecated::BUSINESS_SHIPMENT_BIG_FIELD_DEPRECATION_REASON);
-
-		$this->service = $service;
-	}
-
-	/**
-	 * Get the Bank-Object
-	 *
-	 * @return BankData|null - Bank-Object or null if none
-	 *
-	 * @deprecated - These details belong to the `ShipmentDetails` Object, please do them there
-	 * @see ShipmentOrder - Which includes ShipmentDetails
-	 * @see ShipmentDetails
-	 */
-	public function getBank() {
-		Deprecated::methodIsDeprecated(__METHOD__, __CLASS__, Deprecated::BUSINESS_SHIPMENT_BIG_FIELD_DEPRECATION_REASON);
-
-		return $this->bank;
-	}
-
-	/**
-	 * Set the Bank-Object
-	 *
-	 * @param BankData|null $bank - Bank-Object or null for none
-	 *
-	 * @deprecated - These details belong to the `ShipmentDetails` Object, please do them there
-	 * @see ShipmentOrder - Which includes ShipmentDetails
-	 * @see ShipmentDetails
-	 */
-	public function setBank($bank) {
-		Deprecated::methodIsDeprecated(__METHOD__, __CLASS__, Deprecated::BUSINESS_SHIPMENT_BIG_FIELD_DEPRECATION_REASON);
-
-		$this->bank = $bank;
-	}
-
-	/**
-	 * Get the Sender-Object
-	 *
-	 * @return Sender|null - Sender-Object or null if none
-	 *
-	 * @deprecated - These details belong to the `ShipmentOrder` Object, please do them there
-	 * @see ShipmentOrder
-	 */
-	public function getSender() {
-		Deprecated::methodIsDeprecated(__METHOD__, __CLASS__, Deprecated::BUSINESS_SHIPMENT_BIG_FIELD_DEPRECATION_REASON);
-
-		return $this->sender;
-	}
-
-	/**
-	 * Set the Sender-Object
-	 *
-	 * @param Sender|null $sender - Sender-Object or null if none
-	 *
-	 * @deprecated - These details belong to the `ShipmentOrder` Object, please do them there
-	 * @see ShipmentOrder
-	 */
-	public function setSender($sender) {
-		Deprecated::methodIsDeprecated(__METHOD__, __CLASS__, Deprecated::BUSINESS_SHIPMENT_BIG_FIELD_DEPRECATION_REASON);
-
-		$this->sender = $sender;
-	}
-
-	/**
-	 * Get the Receiver-Object
-	 *
-	 * @return Receiver|PackStation|Filial|null - Receiver-Object or null if none
-	 *
-	 * @deprecated - These details belong to the `ShipmentOrder` Object, please do them there
-	 * @see ShipmentOrder
-	 */
-	public function getReceiver() {
-		Deprecated::methodIsDeprecated(__METHOD__, __CLASS__, Deprecated::BUSINESS_SHIPMENT_BIG_FIELD_DEPRECATION_REASON);
-
-		return $this->receiver;
-	}
-
-	/**
-	 * Set the Receiver-Object
-	 *
-	 * @param Receiver|PackStation|Filial|null $receiver - Receiver-Object or null if none
-	 *
-	 * @deprecated - These details belong to the `ShipmentOrder` Object, please do them there
-	 * @see ShipmentOrder
-	 */
-	public function setReceiver($receiver) {
-		Deprecated::methodIsDeprecated(__METHOD__, __CLASS__, Deprecated::BUSINESS_SHIPMENT_BIG_FIELD_DEPRECATION_REASON);
-
-		$this->receiver = $receiver;
-	}
-
-	/**
-	 * Get the ReturnReceiver-Object
-	 *
-	 * Usually only used for Re-Tour (In most cases the same Address like the Sender)
-	 *
-	 * @return ReturnReceiver|null - ReturnReceiver-Object or null if none
-	 *
-	 * @deprecated - These details belong to the `ShipmentOrder` Object, please do them there
-	 * @see ShipmentOrder
-	 */
-	public function getReturnReceiver() {
-		Deprecated::methodIsDeprecated(__METHOD__, __CLASS__, Deprecated::BUSINESS_SHIPMENT_BIG_FIELD_DEPRECATION_REASON);
-
-		return $this->returnReceiver;
-	}
-
-	/**
-	 * Set the ReturnReceiver-Object
-	 *
-	 * Usually only used for Re-Tour (In most cases the same Address like the Sender)
-	 *
-	 * @param ReturnReceiver|null $returnReceiver - ReturnReceiver-Object or null for none
-	 *
-	 * @deprecated - These details belong to the `ShipmentOrder` Object, please do them there
-	 * @see ShipmentOrder
-	 */
-	public function setReturnReceiver($returnReceiver) {
-		Deprecated::methodIsDeprecated(__METHOD__, __CLASS__, Deprecated::BUSINESS_SHIPMENT_BIG_FIELD_DEPRECATION_REASON);
-
-		$this->returnReceiver = $returnReceiver;
-	}
-
-	/**
-	 * Get the ExportDocument-Object
-	 *
-	 * @return ExportDocument|null - ExportDocument-Object or null if none
-	 *
-	 * @deprecated - These details belong to the `ShipmentOrder` Object, please do them there
-	 * @see ShipmentOrder
-	 */
-	public function getExportDocument() {
-		Deprecated::methodIsDeprecated(__METHOD__, __CLASS__, Deprecated::BUSINESS_SHIPMENT_BIG_FIELD_DEPRECATION_REASON);
-
-		return $this->exportDocument;
-	}
-
-	/**
-	 * Set the ExportDocument-Object
-	 *
-	 * @param ExportDocument|null $exportDocument - ExportDocument-Object or null for none
-	 *
-	 * @deprecated - These details belong to the `ShipmentOrder` Object, please do them there
-	 * @see ShipmentOrder
-	 */
-	public function setExportDocument($exportDocument) {
-		Deprecated::methodIsDeprecated(__METHOD__, __CLASS__, Deprecated::BUSINESS_SHIPMENT_BIG_FIELD_DEPRECATION_REASON);
-
-		$this->exportDocument = $exportDocument;
-	}
-
-	/**
-	 * Get the Sequence-Number
-	 *
-	 * @return string - Sequence-Number
-	 *
-	 * @deprecated - These details belong to the `ShipmentOrder` Object, please do them there
-	 * @see ShipmentOrder
-	 */
-	public function getSequenceNumber() {
-		Deprecated::methodIsDeprecated(__METHOD__, __CLASS__, Deprecated::BUSINESS_SHIPMENT_BIG_FIELD_DEPRECATION_REASON);
-
-		return $this->sequenceNumber;
-	}
-
-	/**
-	 * Set the Sequence-Number
-	 *
-	 * @param string $sequenceNumber - sequence-Number
-	 *
-	 * @deprecated - These details belong to the `ShipmentOrder` Object, please do them there
-	 * @see ShipmentOrder
-	 */
-	public function setSequenceNumber($sequenceNumber) {
-		Deprecated::methodIsDeprecated(__METHOD__, __CLASS__, Deprecated::BUSINESS_SHIPMENT_BIG_FIELD_DEPRECATION_REASON);
-
-		$this->sequenceNumber = $sequenceNumber;
-	}
-
-	/**
-	 * Get the Receiver-Email
-	 *
-	 * @return null|string - Receiver-Email or null if none
-	 *
-	 * @deprecated - Moved Receiver E-Mail to correct Class (Shipment-Details)
-	 * @see ShipmentOrder - Which includes ShipmentDetails
-	 * @see ShipmentDetails
-	 */
-	public function getReceiverEmail() {
-		Deprecated::methodIsDeprecated(__METHOD__, __CLASS__, 'Moved Receiver E-Mail to correct Class (Shipment-Details)');
-
-		return $this->receiverEmail;
-	}
-
-	/**
-	 * Set the Receiver-Email
-	 *
-	 * @param null|string $receiverEmail - Receiver-Email or null for none
-	 *
-	 * @deprecated - Moved Receiver E-Mail to correct Class (Shipment-Details)
-	 * @see ShipmentOrder - Which includes ShipmentDetails
-	 * @see ShipmentDetails
-	 */
-	public function setReceiverEmail($receiverEmail) {
-		Deprecated::methodIsDeprecated(__METHOD__, __CLASS__, 'Moved Receiver E-Mail to correct Class (Shipment-Details)');
-
-		$this->receiverEmail = $receiverEmail;
-	}
-
-	/**
-	 * Get if the label should only printed if the Receiver-Address is valid
-	 *
-	 * @return bool|null - Should the label only printed on a valid Address | null means DHL-Default
-	 *
-	 * @deprecated - These details belong to the `ShipmentOrder` Object, please do them there
-	 * @see ShipmentOrder
-	 */
-	public function getPrintOnlyIfReceiverIsValid() {
-		Deprecated::methodIsDeprecated(__METHOD__, __CLASS__, Deprecated::BUSINESS_SHIPMENT_BIG_FIELD_DEPRECATION_REASON);
-
-		return $this->printOnlyIfReceiverIsValid;
-	}
-
-	/**
-	 * Set if the label should only printed if the Receiver-Address is valid
-	 *
-	 * WARNING: The Address-Validation can fail sometimes also on existing Addresses (for example new streets) use with care!
-	 *
-	 * @param bool|null $printOnlyIfReceiverIsValid - Should the label only printed on a valid Address | null uses default from DHL
-	 *
-	 * @deprecated - These details belong to the `ShipmentOrder` Object, please do them there
-	 * @see ShipmentOrder
-	 */
-	public function setPrintOnlyIfReceiverIsValid($printOnlyIfReceiverIsValid) {
-		Deprecated::methodIsDeprecated(__METHOD__, __CLASS__, Deprecated::BUSINESS_SHIPMENT_BIG_FIELD_DEPRECATION_REASON);
-
-		$this->printOnlyIfReceiverIsValid = $printOnlyIfReceiverIsValid;
 	}
 
 	/**
@@ -919,14 +587,14 @@ class BusinessShipment extends Version {
 		}
 
 		switch($this->getMayor()) {
-			case 1:
-				$this->addError('Version 1 Methods were removed!');
-
-				return false;
 			case 2:
 			case 3:
-			default:
 				$data = $this->getVersionClass();
+				break;
+			default:
+				$this->addError('Unsupported Version!');
+				return false;
+
 		}
 
 		try {
@@ -989,14 +657,14 @@ class BusinessShipment extends Version {
 	 */
 	public function doManifest($shipmentNumbers) {
 		switch($this->getMayor()) {
-			case 1:
-				$this->addError('Version 1 Methods were removed!');
-
-				return false;
 			case 2:
 			case 3:
-			default:
 				$data = $this->createDoManifestClass_v2($shipmentNumbers);
+				break;
+			default:
+				$this->addError('Unsupported Version!');
+				return false;
+
 		}
 
 		try {
@@ -1061,14 +729,13 @@ class BusinessShipment extends Version {
 		}
 
 		switch($this->getMayor()) {
-			case 1:
-				$this->addError('Version 1 Methods were removed!');
-
-				return false;
 			case 2:
 			case 3:
-			default:
 				$data = $this->createGetManifestClass_v2($manifestDate);
+				break;
+			default:
+				$this->addError('Unsupported Version!');
+				return false;
 		}
 
 		try {
@@ -1149,10 +816,6 @@ class BusinessShipment extends Version {
 	 */
 	public function createShipmentOrder() {
 		switch($this->getMayor()) {
-			case 1:
-				$this->addError('Version 1 Methods were removed!');
-
-				return false;
 			case 2:
 				if($this->countShipmentOrders() < 1 && $this->getMayor() === 2)
 					$data = $this->createShipmentClass_v2_legacy();
@@ -1160,8 +823,12 @@ class BusinessShipment extends Version {
 					$data = $this->createShipmentClass_v2();
 				break;
 			case 3:
-			default:
 				$data = $this->createShipmentClass_v3();
+				break;
+			default:
+				$this->addError('Unsupported Version!');
+				return false;
+
 		}
 
 		$response = null;
@@ -1255,79 +922,6 @@ class BusinessShipment extends Version {
 	}
 
 	/**
-	 * Creates the Data-Object for the Request
-	 *
-	 * @param null|string $shipmentNumber - Shipment Number which should be included or null for none
-	 * @return StdClass - Data-Object
-	 * @since 2.0
-	 *
-	 * @deprecated - Old Shipment creation class (Supports only 1 Shipment)
-	 */
-	private function createShipmentClass_v2_legacy($shipmentNumber = null) {
-		Deprecated::methodIsDeprecated(__METHOD__, __CLASS__);
-
-		// Set old values
-		$this->getShipmentDetails()->setService($this->getService());
-		$this->getShipmentDetails()->setBank($this->getBank());
-
-		// Create class
-		$data = new StdClass;
-		$data->Version = $this->getVersionClass();
-
-		if($shipmentNumber !== null)
-			$data->shipmentNumber = (string) $shipmentNumber;
-
-		$data->ShipmentOrder = new StdClass;
-		$data->ShipmentOrder->sequenceNumber = $this->getSequenceNumber();
-
-		// Shipment
-		$data->ShipmentOrder->Shipment = new StdClass;
-		$data->ShipmentOrder->Shipment->ShipmentDetails = $this->getShipmentDetails()->getShipmentDetailsClass_v2();
-
-		// Notification
-		$email = null; // Check for backward compatibility
-		if($this->getShipmentDetails()->getNotificationEmail() === null && $this->receiverEmail !== null)
-			$email = $this->getReceiverEmail(); // Use old E-Mail implementation for BC
-
-		if($email !== null) {
-			$data->ShipmentOrder->Shipment->ShipmentDetails->Notification = new StdClass;
-			$data->ShipmentOrder->Shipment->ShipmentDetails->Notification->recipientEmailAddress = $email;
-		}
-
-		// Shipper
-		$data->ShipmentOrder->Shipment->Shipper = $this->getSender()->getClass_v2();
-
-		// Receiver
-		$data->ShipmentOrder->Shipment->Receiver = $this->getReceiver()->getClass_v2();
-
-		// Return-Receiver
-		if($this->getReturnReceiver() !== null)
-			$data->ShipmentOrder->Shipment->ReturnReceiver = $this->getReturnReceiver()->getClass_v2();
-
-		// Export-Document
-		if($this->getExportDocument() !== null) {
-			try {
-				$data->ShipmentOrder->Shipment->ExportDocument = $this->getExportDocument()->getExportDocumentClass_v2();
-			} catch(Exception $e) {
-				$this->addError($e->getMessage());
-			}
-		}
-
-		// Other Settings
-		if($this->getPrintOnlyIfReceiverIsValid() !== null) {
-			$data->ShipmentOrder->PrintOnlyIfCodeable = new StdClass;
-			$data->ShipmentOrder->PrintOnlyIfCodeable->active = (int) $this->getPrintOnlyIfReceiverIsValid();
-		}
-
-		if($this->getLabelResponseType() !== null && in_array($this->getLabelResponseType(), array(self::RESPONSE_TYPE_URL, self::RESPONSE_TYPE_B64)))
-			$data->ShipmentOrder->labelResponseType = $this->getLabelResponseType();
-		else if($this->getLabelResponseType() !== null)
-			$this->addError('Response-Type' . $this->getLabelResponseType() . ' is not allowed in Version 2.x. Using default instead');
-
-		return $data;
-	}
-
-	/**
 	 * Creates the Shipment-Order-Delete Request via SOAP
 	 *
 	 * @param Object|array $data - Delete-Data
@@ -1343,18 +937,6 @@ class BusinessShipment extends Version {
 	}
 
 	/**
-	 * Alias for deleteShipmentOrder
-	 *
-	 * Deletes a Shipment
-	 *
-	 * @param string|string[] $shipmentNumbers - Shipment-Number(s) of the Shipment(s) to delete (up to 30 Numbers)
-	 * @return bool|Response - Response
-	 */
-	public function deleteShipment($shipmentNumbers) {
-		return $this->deleteShipmentOrder($shipmentNumbers);
-	}
-
-	/**
 	 * Deletes a Shipment
 	 *
 	 * @param string|string[] $shipmentNumbers - Shipment-Number(s) of the Shipment(s) to delete (up to 30 Numbers)
@@ -1362,14 +944,12 @@ class BusinessShipment extends Version {
 	 */
 	public function deleteShipmentOrder($shipmentNumbers) {
 		switch($this->getMayor()) {
-			case 1:
-				$this->addError('Version 1 Methods were removed!');
-
-				return false;
 			case 2:
 			case 3:
-			default:
 				$data = $this->createDeleteClass_v2($shipmentNumbers);
+				break;
+			default:
+				$this->addError('Unsupported Version!');
 		}
 
 		try {
@@ -1427,35 +1007,22 @@ class BusinessShipment extends Version {
 	}
 
 	/**
-	 * Alias for getLabel
-	 *
 	 * Requests a Shipment-Label again
 	 *
 	 * @param string|string[] $shipmentNumbers - Shipment-Number(s) of the Label(s) (up to 30 Numbers)
 	 * @return bool|Response - Response or false on error
 	 */
 	public function getShipmentLabel($shipmentNumbers) {
-		return $this->getLabel($shipmentNumbers);
-	}
-
-	/**
-	 * Requests a Shipment-Label again
-	 *
-	 * @param string|string[] $shipmentNumbers - Shipment-Number(s) of the Label(s) (up to 30 Numbers)
-	 * @return bool|Response - Response or false on error
-	 */
-	public function getLabel($shipmentNumbers) {
 		switch($this->getMayor()) {
-			case 1:
-				$this->addError('Version 1 Methods were removed!');
-
-				return false;
 			case 2:
 				$data = $this->getLabelClass_v2($shipmentNumbers);
 				break;
 			case 3:
-			default:
 				$data = $this->getLabelClass_v3($shipmentNumbers);
+				break;
+			default:
+				$this->addError('Unsupported Version!');
+				return false;
 		}
 
 		try {
@@ -1539,16 +1106,15 @@ class BusinessShipment extends Version {
 	 */
 	public function getExportDoc($shipmentNumbers) {
 		switch($this->getMayor()) {
-			case 1:
-				$this->addError('Version 1 Methods were removed!');
-
-				return false;
 			case 2:
 				$data = $this->getExportDocClass_v2($shipmentNumbers);
 				break;
 			case 3:
-			default:
 				$data = $this->getExportDocClass_v3($shipmentNumbers);
+				break;
+			default:
+				$this->addError('Unsupported Version!');
+				return false;
 		}
 
 		try {
@@ -1616,16 +1182,15 @@ class BusinessShipment extends Version {
 	 */
 	public function validateShipment() {
 		switch($this->getMayor()) {
-			case 1:
-				$this->addError('Version 1 Methods were removed!');
-
-				return false;
 			case 2:
 				$this->createShipmentClass_v2();
 				break;
 			case 3:
-			default:
 				$data = $this->createShipmentClass_v3();
+				break;
+			default:
+				$this->addError('Unsupported Version!');
+				return false;
 
 		}
 
@@ -1674,10 +1239,6 @@ class BusinessShipment extends Version {
 		}
 
 		switch($this->getMayor()) {
-			case 1:
-				$this->addError('Version 1 Methods were removed!');
-
-				return false;
 			case 2:
 				if($this->countShipmentOrders() < 1 && $this->getMayor() === 2)
 					$data = $this->createShipmentClass_v2_legacy($shipmentNumber);
@@ -1685,8 +1246,12 @@ class BusinessShipment extends Version {
 					$data = $this->createShipmentClass_v2($shipmentNumber);
 				break;
 			case 3:
+				$data = $this->createShipmentClass_v3($shipmentNumber);
+				break;
 			default:
-			$data = $this->createShipmentClass_v3($shipmentNumber);
+				$this->addError('Unsupported Version!');
+				return false;
+
 
 			// Fix for shipmentOrder update, no array accepted because single operation only
 			$data->ShipmentOrder = $data->ShipmentOrder[0];

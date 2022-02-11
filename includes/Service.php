@@ -613,58 +613,6 @@ class Service {
 	}
 
 	/**
-	 * Alias for $this->getIndividualSenderRequirementsEnabled()
-	 *
-	 * @return bool|null - Service "IndividualSenderRequirements" is enabled or null for default
-	 *
-	 * @deprecated - Invalid name of the function
-	 */
-	public function getIndividualSenderRequiredmentsEnabled() {
-		Deprecated::methodIsDeprecated(__METHOD__, __CLASS__, 'Use getIndividualSenderRequirementsEnabled() instead, this method will removed in the future!');
-
-		return $this->getIndividualSenderRequirementsEnabled();
-	}
-
-	/**
-	 * Alias for $this->setIndividualSenderRequirementsEnabled()
-	 *
-	 * @param bool|null $individualSenderRequirementsEnabled - Service "IndividualSenderRequirements" is enabled or null for default
-	 *
-	 * @deprecated - Invalid name of the function
-	 */
-	public function setIndividualSenderRequiredmentsEnabled($individualSenderRequirementsEnabled) {
-		Deprecated::methodIsDeprecated(__METHOD__, __CLASS__, 'Use setIndividualSenderRequirementsEnabled() instead, this method will removed in the future!');
-
-		$this->setIndividualSenderRequirementsEnabled($individualSenderRequirementsEnabled);
-	}
-
-	/**
-	 * Alias for $this->getIndividualSenderRequirementsText()
-	 *
-	 * @return null|string - Sender Requirement (Free text) or null for none
-	 *
-	 * @deprecated - Invalid name of the function
-	 */
-	public function getIndividualSenderRequiredmentsText() {
-		Deprecated::methodIsDeprecated(__METHOD__, __CLASS__, 'Use getIndividualSenderRequirementsText() instead, this method will removed in the future!');
-
-		return $this->getIndividualSenderRequirementsText();
-	}
-
-	/**
-	 * Alias for $this->setIndividualSenderRequirementsText()
-	 *
-	 * @param null|string $individualSenderRequirementsText - Sender Requirement (Free text) or null for none
-	 *
-	 * @deprecated - Invalid name of the function
-	 */
-	public function setIndividualSenderRequiredmentsText($individualSenderRequirementsText) {
-		Deprecated::methodIsDeprecated(__METHOD__, __CLASS__, 'Use setIndividualSenderRequirementsText() instead, this method will removed in the future!');
-
-		$this->setIndividualSenderRequirementsText($individualSenderRequirementsText);
-	}
-
-	/**
 	 * Get if the Service "IndividualSenderRequirements" is enabled
 	 *
 	 * @return bool|null - Service "IndividualSenderRequirements" is enabled or null for default
@@ -719,32 +667,6 @@ class Service {
 	}
 
 	/**
-	 * Alias for $this->getReturnImmediatelyIfShipmentFailed()
-	 *
-	 * @return bool|null - Should Package return immediately when the shipping has failed or null for default
-	 *
-	 * @deprecated - Invalid name of the function
-	 */
-	public function getReturnImmediatlyIfShipmentFailed() {
-		Deprecated::methodIsDeprecated(__METHOD__, __CLASS__, 'Use getReturnImmediatelyIfShipmentFailed() instead, this method will removed in the future!');
-
-		return $this->getReturnImmediatelyIfShipmentFailed();
-	}
-
-	/**
-	 * Alias for $this->setReturnImmediatelyIfShipmentFailed()
-	 *
-	 * @param bool|null $returnImmediatelyIfShipmentFailed - Should Package return immediately when the shipping has failed or null for default
-	 *
-	 * @deprecated - Invalid name of the function
-	 */
-	public function setReturnImmediatlyIfShipmentFailed($returnImmediatelyIfShipmentFailed) {
-		Deprecated::methodIsDeprecated(__METHOD__, __CLASS__, 'Use setReturnImmediatelyIfShipmentFailed() instead, this method will removed in the future!');
-
-		$this->setReturnImmediatelyIfShipmentFailed($returnImmediatelyIfShipmentFailed);
-	}
-
-	/**
 	 * Get if the Package should return immediately when the shipping has failed
 	 *
 	 * @return bool|null - Should Package return immediately when the shipping has failed or null for default
@@ -760,32 +682,6 @@ class Service {
 	 */
 	public function setReturnImmediatelyIfShipmentFailed($returnImmediatelyIfShipmentFailed) {
 		$this->returnImmediatelyIfShipmentFailed = $returnImmediatelyIfShipmentFailed;
-	}
-
-	/**
-	 * Alias for $this->getNoticeOnNonDeliverable()
-	 *
-	 * @return bool|null - Is the Service "Notice on Non-Deliverable" enabled or null for default
-	 *
-	 * @deprecated - Invalid name of the function
-	 */
-	public function getNoticeNonDeliverability() {
-		Deprecated::methodIsDeprecated(__METHOD__, __CLASS__, 'Use getNoticeOnNonDeliverable() instead, this method will removed in the future!');
-
-		return $this->getNoticeOnNonDeliverable();
-	}
-
-	/**
-	 * Alias for $this->setNoticeOnNonDeliverable()
-	 *
-	 * @param bool|null $noticeOnNonDeliverable - Is the Service "Notice on Non-Deliverable" enabled or null for default
-	 *
-	 * @deprecated - Invalid name of the function
-	 */
-	public function setNoticeNonDeliverability($noticeOnNonDeliverable) {
-		Deprecated::methodIsDeprecated(__METHOD__, __CLASS__, 'Use setNoticeOnNonDeliverable() instead, this method will removed in the future!');
-
-		$this->setNoticeOnNonDeliverable($noticeOnNonDeliverable);
 	}
 
 	/**

@@ -343,28 +343,6 @@ abstract class Address {
 	}
 
 	/**
-	 * Sets Street-Name and Number by Address String
-	 *
-	 * Found here: https://www.tricd.de/php/php-strassenname-und-hausnummer-mit-php-parsen/
-	 *
-	 * @param string $street - Address (Street plus number)
-	 *
-	 * @deprecated - Buggy on some addresses, please separate the number and street by yourself
-	 */
-	public final function setFullStreet($street) {
-		Deprecated::methodIsDeprecated(__METHOD__, __CLASS__);
-
-		$match = array();
-
-		preg_match('/^([^\d]*[^\d\s]) *(\d.*)$/', $street, $match);
-
-		if(count($match) == 0) return;
-
-		$this->setStreetName($match[1]);
-		$this->setStreetNumber($match[2]);
-	}
-
-	/**
 	 * Returns the Origin Class
 	 *
 	 * @return StdClass - Origin Class

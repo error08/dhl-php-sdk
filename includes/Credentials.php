@@ -188,39 +188,12 @@ class Credentials {
 	}
 
 	/**
-	 * Alias for $this->getEkp
-	 *
-	 * @param null|int $len - Max-Chars to get from this String or null for all
-	 * @return string - EKP-Number with x Chars
-	 *
-	 * @deprecated - Invalid name of the function
-	 */
-	public function getEpk($len = null) {
-		Deprecated::methodIsDeprecated(__METHOD__, __CLASS__, 'Use getEkp() instead');
-
-		return $this->getEkp($len);
-	}
-
-	/**
 	 * Set the EKP-Number
 	 *
 	 * @param string $ekp - EKP-Number
 	 */
 	public function setEkp($ekp) {
 		$this->ekp = $ekp;
-	}
-
-	/**
-	 * Alias for $this->setEkp
-	 *
-	 * @param string $ekp - EKP-Number
-	 *
-	 * @deprecated - Invalid name of the function
-	 */
-	public function setEpk($ekp) {
-		Deprecated::methodIsDeprecated(__METHOD__, __CLASS__, 'Use setEkp() instead');
-
-		$this->setEkp($ekp);
 	}
 
 	/**
