@@ -1,31 +1,31 @@
 {
-    "name": "petschko/dhl-php-sdk",
+    "name": "error08/dhl-php-sdk",
     "description": "DHL SDK",
     "type": "library",
     "license": "MIT",
-    "version": "0.6",
+    "version": "0.7",
     "authors": [
         {
-            "name": "Peter Dragicevic",
-            "email": "peter@petschko.org",
-            "homepage": "http://petschko.org/",
+            "name": "Lars Pinnow (lpsoft)",
+            "email": "info@lpsoft.de",
+            "homepage": "http://lpsoft.de/",
             "role": "developer"
         }
     ],
     "support": {
-        "email": "peter@petschko.org",
-        "issues": "https://github.com/Petschko/dhl-php-sdk/issues",
-        "source": "https://github.com/Petschko/dhl-php-sdk",
-        "docs": "http://docs.petschko.org/dhl-php-sdk/index.html"
+        "email": "info@lpsoft.de",
+        "issues": "https://github.com/error08/dhl-php-sdk/issues",
+        "source": "https://github.com/error08/dhl-php-sdk",
     },
     "require": {
         "php": ">=7.2.0",
         "ext-soap": "*",
-        "ext-mbstring": "*"
+        "ext-mbstring": "*",
+        "monolog/monolog": "2.3.*"
     },
     "autoload": {
         "psr-4": {
-            "Petschko\\DHL\\": "includes/"
+            "error08\\DHL\\": "includes/"
         }
     }
 }

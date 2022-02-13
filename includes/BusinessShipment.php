@@ -19,6 +19,9 @@ use SoapClient;
 use SoapHeader;
 use stdClass;
 
+use Monolog\Handler\StreamHandler;
+use Monolog\Logger;
+
 /**
  * Class BusinessShipment
  *
@@ -114,118 +117,6 @@ class BusinessShipment extends Version {
 	private $shipmentDetails;
 
 	/**
-	 * Contains the Service Object (Many settings for the Shipment)
-	 *
-	 * Note: Optional
-	 *
-	 * @var Service|null $service - Service Object | null for none
-	 *
-	 * @deprecated - These details belong to the `ShipmentDetails` Object, please do them there
-	 * @see ShipmentOrder - Which includes ShipmentDetails
-	 * @see ShipmentDetails
-	 */
-	private $service = null;
-
-	/**
-	 * Contains the Bank-Object
-	 *
-	 * Note: Optional
-	 *
-	 * @var BankData|null $bank - Bank-Object | null for none
-	 *
-	 * @deprecated - These details belong to the `ShipmentDetails` Object, please do them there
-	 * @see ShipmentOrder - Which includes ShipmentDetails
-	 * @see ShipmentDetails
-	 */
-	private $bank = null;
-
-	/**
-	 * Contains the Sender-Object
-	 *
-	 * @var Sender|null $sender - Sender Object
-	 *
-	 * @deprecated - These details belong to the `ShipmentOrder` Object, please do them there
-	 * @see ShipmentOrder
-	 */
-	private $sender = null;
-
-	/**
-	 * Contains the Receiver-Object
-	 *
-	 * @var Receiver|PackStation|Filial|null $receiver - Receiver Object
-	 *
-	 * @deprecated - These details belong to the `ShipmentOrder` Object, please do them there
-	 * @see ShipmentOrder
-	 */
-	private $receiver = null;
-
-	/**
-	 * Contains the Return Receiver Object
-	 *
-	 * Note: Optional
-	 *
-	 * @var ReturnReceiver|null $returnReceiver - Return Receiver Object | null for none
-	 *
-	 * @deprecated - These details belong to the `ShipmentOrder` Object, please do them there
-	 * @see ShipmentOrder
-	 */
-	private $returnReceiver = null;
-
-	/**
-	 * Contains the Export-Document-Settings Object
-	 *
-	 * Note: Optional
-	 *
-	 * @var ExportDocument|null $exportDocument - Export-Document-Settings Object | null for none
-	 *
-	 * @deprecated - These details belong to the `ShipmentOrder` Object, please do them there
-	 * @see ShipmentOrder
-	 */
-	private $exportDocument = null;
-
-	// Fields
-	/**
-	 * Contains the Sequence-Number
-	 *
-	 * Min-Len: -
-	 * Max-Len: 30
-	 *
-	 * @var string $sequenceNumber - Sequence-Number
-	 *
-	 * @deprecated - These details belong to the `ShipmentOrder` Object, please do them there
-	 * @see ShipmentOrder
-	 */
-	private $sequenceNumber = '1';
-
-	/**
-	 * Contains the Receiver-E-Mail (Used for Notification to the Receiver)
-	 *
-	 * Note: Optional
-	 *
-	 * Min-Len: -
-	 * Max-Len: 70
-	 *
-	 * @var string|null $receiverEmail - Receiver-E-Mail | null for none
-	 *
-	 * @deprecated - Moved Receiver E-Mail to correct Class (Shipment-Details)
-	 * @see ShipmentOrder - Which includes ShipmentDetails
-	 * @see ShipmentDetails
-	 */
-	private $receiverEmail = null;
-
-	/**
-	 * Contains if the label will be only be printable, if the receiver address is valid.
-	 *
-	 * Note: Optional
-	 *
-	 * @var bool|null $printOnlyIfReceiverIsValid - true will only print if receiver address is valid else false (null uses default)
-	 *
-	 * @deprecated - These details belong to the `ShipmentOrder` Object, please do them there
-	 * @see ShipmentOrder
-	 */
-	private $printOnlyIfReceiverIsValid = null;
-
-	/**
 	 * Contains if how the Label-Response-Type will be
 	 *
 	 * Note: Optional
@@ -259,6 +150,8 @@ class BusinessShipment extends Version {
 	 */
 	private $labelFormat = null;
 
+	private $logger = null;
+
 	/**
 	 * BusinessShipment constructor.
 	 *
@@ -270,6 +163,8 @@ class BusinessShipment extends Version {
 	 * @param null|string $version - Version to use or null for the newest
 	 */
 	public function __construct($credentials, $testMode = false, $version = null) {
+		$this->logger = new Logger('BusinessShipment');
+		$this->logger->pushHandler(new StreamHandler(__DIR__ . '/logs/app.log', Logger::DEBUG));
 
 		// Set Version
 		if($version === null)
@@ -279,6 +174,7 @@ class BusinessShipment extends Version {
 
 		// Set Test-Mode
 		$this->setTest((($testMode) ? true : false));
+		$this->logger->info('Testmode: '.$testMode);
 
 		// Set Credentials
 		if($this->isTest()) {
@@ -290,7 +186,7 @@ class BusinessShipment extends Version {
 		}
 
 		$this->setCredentials($credentials);
-
+		$this->logger->debug('API-Credentials : '.$credentials);
 		// @deprecated Set Shipment-Class for Backward-Compatibility (remove in newer versions)
 		$this->shipmentDetails = new ShipmentDetails($credentials->getEkp(10) . '0101');
 	}
@@ -554,14 +450,14 @@ class BusinessShipment extends Version {
 	 * Builds the Soap-Client
 	 */
 	private function buildSoapClient() {
-		if($this->isTest())
-			$location = self::DHL_SANDBOX_URL;
-		else
-			$location = self::DHL_PRODUCTION_URL;
-
 		$headers = array();
 		$headers[] = $this->buildAuthHeader();
 		$headers[] = new SoapHeader(self::DHL_SOAP_HEADER_URI, 'SOAPAction', 'urn:createShipmentOrder');
+
+		$this->logger->debug('SOAP-Header: '.$headers);
+		$this->logger->debug('SOAP-URL: '.$this->getAPIUrl());
+		$this->logger->debug('login: '.$this->getCredentials()->getApiUser());
+		$this->logger->debug('password: '.$this->getCredentials()->getApiPassword());
 
 		$this->setSoapClient(new SoapClient($this->getAPIUrl(), array('login' => $this->getCredentials()->getApiUser(), 'password' => $this->getCredentials()->getApiPassword())));
 		$this->getSoapClient()->__setSoapHeaders($headers);
