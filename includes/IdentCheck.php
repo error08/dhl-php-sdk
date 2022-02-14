@@ -1,23 +1,7 @@
 <?php
 
-namespace Petschko\DHL;
-
-/**
- * Author: Peter Dragicevic [peter@petschko.org]
- * Authors-Website: https://petschko.org/
- * Date: 26.01.2017
- * Time: 18:06
- *
- * Notes: Contains all stuff for Ident-Check
- */
-
+namespace error08\DHL;
 use stdClass;
-
-/**
- * Class IdentCheck
- *
- * @package Petschko\DHL
- */
 class IdentCheck {
 	/**
 	 * Contains the Last-Name of the Person

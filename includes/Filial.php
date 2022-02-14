@@ -1,23 +1,7 @@
 <?php
 
-namespace Petschko\DHL;
-
-/**
- * Author: Peter Dragicevic [peter@petschko.org]
- * Authors-Website: https://petschko.org/
- * Date: 20.03.2017
- * Time: 13:23
- *
- * Notes: Contains the Filial Class
- */
-
+namespace error08\DHL;
 use stdClass;
-
-/**
- * Class Filial
- *
- * @package Petschko\DHL
- */
 class Filial extends Receiver {
 	/**
 	 * Contains the Post-Number

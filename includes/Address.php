@@ -1,23 +1,7 @@
 <?php
 
-namespace Petschko\DHL;
-
-/**
- * Author: Peter Dragicevic [peter@petschko.org]
- * Authors-Website: https://petschko.org/
- * Date: 15.09.2016
- * Time: 15:23
- *
- * Notes: Contains the DHL-Address Class
- */
-
+namespace error08\DHL;
 use stdClass;
-
-/**
- * Class Address
- *
- * @package Petschko\DHL
- */
 abstract class Address {
 	/**
 	 * Contains the Street Name (without number)
@@ -135,6 +119,23 @@ abstract class Address {
 	 * @var string|null $state - Name of the State (Geo-Location) | null for none
 	 */
 	private $state = null;
+
+	/**
+	 * Sets Street-Name and Number by Address String
+	 *
+	 * Found here: https://www.tricd.de/php/php-strassenname-und-hausnummer-mit-php-parsen/
+	 *
+	 * @param string $street - Address (Street plus number)
+	 *
+	 * @deprecated - Buggy on some addresses, please separate the number and street by yourself
+	 */
+	public final function setFullStreet($street) {
+		$match = array();
+		preg_match('/^([^\d]*[^\d\s]) *(\d.*)$/', $street, $match);
+		if(count($match) == 0) return;
+		$this->setStreetName($match[1]);
+		$this->setStreetNumber($match[2]);
+	}
 
 	/**
 	 * Get the Street name

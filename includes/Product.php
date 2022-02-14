@@ -1,21 +1,6 @@
 <?php
 
-namespace Petschko\DHL;
-
-/**
- * Author: Peter Dragicevic [peter@petschko.org]
- * Authors-Website: https://petschko.org/
- * Date: 10.06.2017
- * Time: 19:34
- *
- * Notes: Contains Product-Class
- */
-
-/**
- * Class Product
- *
- * @package Petschko\DHL
- */
+namespace error08\DHL;
 class Product {
 	/**
 	 * Contains the Product-Type

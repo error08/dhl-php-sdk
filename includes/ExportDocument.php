@@ -1,24 +1,8 @@
 <?php
 
-namespace Petschko\DHL;
-
-/**
- * Author: Peter Dragicevic [peter@petschko.org]
- * Authors-Website: https://petschko.org/
- * Date: 26.01.2017
- * Time: 21:05
- *
- * Notes: Contains the ExportDocument Class
- */
-
+namespace error08\DHL;
 use Exception;
 use stdClass;
-
-/**
- * Class ExportDocument
- *
- * @package Petschko\DHL
- */
 class ExportDocument {
 	/**
 	 * Constants for Export-Type

@@ -1,23 +1,6 @@
 <?php
-/**
- * Author: Peter Dragicevic [peter@petschko.org]
- * Authors-Website: https://petschko.org/
- * Date: 09.06.2019
- * Time: 16:05
- *
- * Notes: Contains the class for the Label-Format
- */
-
-namespace Petschko\DHL;
-
+namespace error08\DHL;
 use stdClass;
-
-/**
- * Class LabelFormat
- *
- * @package Petschko\DHL
- * @since 3.0
- */
 class LabelFormat {
 	/**
 	 * DHL uses sometimes strings instead of int values for true/false, these are set here

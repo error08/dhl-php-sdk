@@ -1,17 +1,12 @@
 <?php
 
-namespace Petschko\DHL;
+namespace error08\DHL;
 
 /**
- * Author: Peter Dragicevic [peter@petschko.org]
- * Authors-Website: https://petschko.org/
- * Date: 26.01.2017
- * Time: 15:37
- *
  * Notes: Contains all Functions/Values for DHL-Business-Shipment
  *
  * Checkout the repo which inspired me to improve this:
- * @link https://github.com/tobias-redmann/dhl-php-sdk
+ * @link https://github.com/Petschko/dhl-php-sdk
  */
 
 use Exception;
@@ -19,15 +14,8 @@ use SoapClient;
 use SoapHeader;
 use stdClass;
 
-use Monolog\Handler\StreamHandler;
-use Monolog\Logger;
-
-/**
- * Class BusinessShipment
- *
- * @package Petschko\DHL
- */
 class BusinessShipment extends Version {
+
 	/**
 	 * DHL-Soap-Header URL
 	 */
@@ -46,7 +34,7 @@ class BusinessShipment extends Version {
 	/**
 	 * Newest-Version
 	 */
-	const NEWEST_VERSION = '3.2';
+	const NEWEST_VERSION = '3.2.0';
 
 	/**
 	 * Response-Type URL
@@ -150,8 +138,6 @@ class BusinessShipment extends Version {
 	 */
 	private $labelFormat = null;
 
-	private $logger = null;
-
 	/**
 	 * BusinessShipment constructor.
 	 *
@@ -163,8 +149,6 @@ class BusinessShipment extends Version {
 	 * @param null|string $version - Version to use or null for the newest
 	 */
 	public function __construct($credentials, $testMode = false, $version = null) {
-		$this->logger = new Logger('BusinessShipment');
-		$this->logger->pushHandler(new StreamHandler(__DIR__ . '/logs/app.log', Logger::DEBUG));
 
 		// Set Version
 		if($version === null)
@@ -174,7 +158,6 @@ class BusinessShipment extends Version {
 
 		// Set Test-Mode
 		$this->setTest((($testMode) ? true : false));
-		$this->logger->info('Testmode: '.$testMode);
 
 		// Set Credentials
 		if($this->isTest()) {
@@ -186,7 +169,6 @@ class BusinessShipment extends Version {
 		}
 
 		$this->setCredentials($credentials);
-		$this->logger->debug('API-Credentials : '.$credentials);
 		// @deprecated Set Shipment-Class for Backward-Compatibility (remove in newer versions)
 		$this->shipmentDetails = new ShipmentDetails($credentials->getEkp(10) . '0101');
 	}
@@ -196,8 +178,8 @@ class BusinessShipment extends Version {
 	 *
 	 * @return string - Business-API-URL
 	 */
-	protected function getAPIUrl() {
-		return '../lib/' . $this->getVersion() . '/geschaeftskundenversand-api-' . $this->getVersion() . '.wsdl';
+	protected function getWSDLDefinition() {
+		return dirname(__DIR__, 1).'/lib/' . $this->getVersion() . '/geschaeftskundenversand-api-' . $this->getVersion() . '.wsdl';
 	}
 
 	/**
@@ -398,24 +380,6 @@ class BusinessShipment extends Version {
 	}
 
 	/**
-	 * Get the Custom-API-URL
-	 *
-	 * @return null|string - Custom-API-URL or null for none
-	 */
-	public function getCustomAPIURL() {
-		return $this->customAPIURL;
-	}
-
-	/**
-	 * Set the Custom-API-URL
-	 *
-	 * @param null|string $customAPIURL - Custom-API-URL or null for none
-	 */
-	public function setCustomAPIURL($customAPIURL) {
-		$this->customAPIURL = $customAPIURL;
-	}
-
-	/**
 	 * Check if the request-Array is to long
 	 *
 	 * @param array $array - Array to check
@@ -454,78 +418,19 @@ class BusinessShipment extends Version {
 		$headers[] = $this->buildAuthHeader();
 		$headers[] = new SoapHeader(self::DHL_SOAP_HEADER_URI, 'SOAPAction', 'urn:createShipmentOrder');
 
-		$this->logger->debug('SOAP-Header: '.$headers);
-		$this->logger->debug('SOAP-URL: '.$this->getAPIUrl());
-		$this->logger->debug('login: '.$this->getCredentials()->getApiUser());
-		$this->logger->debug('password: '.$this->getCredentials()->getApiPassword());
+		$auth_params = array(
+			'login' => $this->getCredentials()->getApiUser(),
+			'password' => $this->getCredentials()->getApiPassword(),
+			'location' => $this->isTest() ? self::DHL_SANDBOX_URL : self::DHL_PRODUCTION_URL,
+			'trace' => 1,
+			'soap_version' => SOAP_1_1,
+			'stream_context' => stream_context_create(array(
+				'ssl' => array('crypto_method' =>  STREAM_CRYPTO_METHOD_TLSv1_2_CLIENT),
+			)),
+		);
 
-		$this->setSoapClient(new SoapClient($this->getAPIUrl(), array('login' => $this->getCredentials()->getApiUser(), 'password' => $this->getCredentials()->getApiPassword())));
+		$this->setSoapClient(new SoapClient($this->getWSDLDefinition(), $auth_params));
 		$this->getSoapClient()->__setSoapHeaders($headers);
-	}
-
-	/**
-	 * Gets the current (local)-Version or Request it via SOAP from DHL
-	 *
-	 * @param bool $viaSOAP - Request the Version from DHL (Default: false - get local-version as string)
-	 * @param bool $getBuildNumber - Return the Build number as well (String look then like this: 2.2.12) Only possible via SOAP - Default false
-	 * @param bool $returnAsArray - Return the Version as Array - Default: false
-	 * @return bool|array|string - Returns the Version as String|array or false on error
-	 */
-	public function getVersion($viaSOAP = false, $getBuildNumber = false, $returnAsArray = false) {
-		if(! $viaSOAP) {
-			if($returnAsArray)
-				return array(
-					'mayor' => parent::getMayor(),
-					'minor' => parent::getMinor()
-				);
-			else
-				return parent::getVersion();
-		}
-
-		switch($this->getMayor()) {
-			case 2:
-			case 3:
-				$data = $this->getVersionClass();
-				break;
-			default:
-				$this->addError('Unsupported Version!');
-				return false;
-
-		}
-
-		try {
-			$response = $this->sendGetVersionRequest($data);
-		} catch(Exception $e) {
-			$this->addError($e->getMessage());
-
-			return false;
-		}
-
-		if(is_soap_fault($response)) {
-			$this->addError($response->faultstring);
-
-			return false;
-		} else {
-			if($returnAsArray)
-				return array(
-					'mayor' => $response->Version->majorRelease,
-					'minor' => $response->Version->minorRelease,
-					'build' => $response->Version->build
-				);
-			else
-				return $response->Version->majorRelease . '.' . $response->Version->minorRelease .
-					(($getBuildNumber) ? '.' . $response->Version->build : '');
-		}
-	}
-
-	/**
-	 * Creates the getVersion-Request via SOAP
-	 *
-	 * @param Object|array $data - Version-Data
-	 * @return Object - DHL-Response
-	 */
-	private function sendGetVersionRequest($data) {
-		return $this->getSoapClient()->getVersion($data);
 	}
 
 	/**

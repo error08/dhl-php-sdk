@@ -3,15 +3,15 @@
 require_once __DIR__.'/vendor/autoload.php';
 
 // Require the Main-Class (other classes will included by this file)
-use Petschko\DHL\BusinessShipment;
-use Petschko\DHL\Credentials;
-use Petschko\DHL\LabelFormat;
-use Petschko\DHL\Receiver;
-use Petschko\DHL\ReturnReceiver;
-use Petschko\DHL\Sender;
-use Petschko\DHL\Service;
-use Petschko\DHL\ShipmentOrder;
-use Petschko\DHL\ShipmentDetails;
+use error08\DHL\BusinessShipment;
+use error08\DHL\Credentials;
+use error08\DHL\LabelFormat;
+use error08\DHL\Receiver;
+use error08\DHL\ReturnReceiver;
+use error08\DHL\Sender;
+use error08\DHL\Service;
+use error08\DHL\ShipmentOrder;
+use error08\DHL\ShipmentDetails;
 
 $testMode = Credentials::TEST_NORMAL; // Uses the normal test user
 //$testMode = Credentials::DHL_BUSINESS_TEST_USER_THERMO; // Uses the thermo-printer test user

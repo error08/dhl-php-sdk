@@ -1,21 +1,6 @@
 <?php
 
-namespace Petschko\DHL;
-
-/**
- * Author: Peter Dragicevic [peter@petschko.org]
- * Authors-Website: https://petschko.org/
- * Date: 02.09.2018
- * Time: 13:13
- *
- * Notes: Contains the LabelData Class
- */
-
-/**
- * Class LabelData
- *
- * @package Petschko\DHL
- */
+namespace error08\DHL;
 class LabelData extends Version implements LabelResponse {
 	/**
 	 * Contains the Status-Code

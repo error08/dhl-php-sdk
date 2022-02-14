@@ -3,7 +3,7 @@
     "description": "DHL SDK",
     "type": "library",
     "license": "MIT",
-    "version": "0.7",
+    "version": "0.7.1",
     "authors": [
         {
             "name": "Lars Pinnow (lpsoft)",
@@ -15,13 +15,12 @@
     "support": {
         "email": "info@lpsoft.de",
         "issues": "https://github.com/error08/dhl-php-sdk/issues",
-        "source": "https://github.com/error08/dhl-php-sdk",
+        "source": "https://github.com/error08/dhl-php-sdk"
     },
     "require": {
         "php": ">=7.2.0",
         "ext-soap": "*",
-        "ext-mbstring": "*",
-        "monolog/monolog": "2.3.*"
+        "ext-mbstring": "*"
     },
     "autoload": {
         "psr-4": {

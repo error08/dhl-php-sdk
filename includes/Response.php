@@ -1,21 +1,6 @@
 <?php
 
-namespace Petschko\DHL;
-
-/**
- * Author: Peter Dragicevic [peter@petschko.org]
- * Authors-Website: https://petschko.org/
- * Date: 18.11.2016
- * Time: 16:00
- *
- * Notes: Contains the DHL-Response Class, which manages the response that you get with simple getters
- */
-
-/**
- * Class Response
- *
- * @package Petschko\DHL
- */
+namespace error08\DHL;
 class Response extends Version implements LabelResponse {
 	/**
 	 * Contains Status-Code-Values:

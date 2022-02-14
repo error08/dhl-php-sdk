@@ -1,24 +1,8 @@
 <?php
 
-namespace Petschko\DHL;
-
-/**
- * Author: Peter Dragicevic [peter@petschko.org]
- * Authors-Website: https://petschko.org/
- * Date: 12.08.2018
- * Time: 18:02
- *
- * Notes: Contains the ShipmentOrder Class
- */
-
+namespace error08\DHL;
 use stdClass;
 use Exception;
-
-/**
- * Class ShipmentOrder
- *
- * @package Petschko\DHL
- */
 class ShipmentOrder {
 	/**
 	 * Contains the Sequence-Number

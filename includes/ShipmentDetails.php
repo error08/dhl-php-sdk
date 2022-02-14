@@ -1,23 +1,7 @@
 <?php
 
-namespace Petschko\DHL;
-
-/**
- * Author: Peter Dragicevic [peter@petschko.org]
- * Authors-Website: https://petschko.org/
- * Date: 18.11.2016
- * Time: 13:07
- *
- * Notes: Details for a Shipment (Like size/Weight etc)
- */
-
+namespace error08\DHL;
 use stdClass;
-
-/**
- * Class ShipmentDetails
- *
- * @package Petschko\DHL
- */
 class ShipmentDetails {
 	/**
 	 * Product-Type Values:

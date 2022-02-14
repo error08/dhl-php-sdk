@@ -1,23 +1,7 @@
 <?php
 
-namespace Petschko\DHL;
-
-/**
- * Author: Peter Dragicevic [peter@petschko.org]
- * Authors-Website: https://petschko.org/
- * Date: 26.01.2017
- * Time: 18:18
- *
- * Notes: Contains the Service Class
- */
-
+namespace error08\DHL;
 use stdClass;
-
-/**
- * Class Service
- *
- * @package Petschko\DHL
- */
 class Service {
 	/**
 	 * Contains if the Shipment should delivered on a specific Day

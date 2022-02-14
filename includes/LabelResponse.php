@@ -1,21 +1,6 @@
 <?php
 
-namespace Petschko\DHL;
-
-/**
- * Author: Peter Dragicevic [peter@petschko.org]
- * Authors-Website: https://petschko.org/
- * Date: 02.09.2018
- * Time: 14:55
- *
- * Notes: Interface for Response and LabelData
- */
-
-/**
- * Interface LabelResponse
- *
- * @package Petschko\DHL
- */
+namespace error08\DHL;
 interface LabelResponse {
 	/**
 	 * Getter for Status-Code

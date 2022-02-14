@@ -1,23 +1,7 @@
 <?php
 
-namespace Petschko\DHL;
-
-/**
- * Author: Peter Dragicevic [peter@petschko.org]
- * Authors-Website: https://petschko.org/
- * Date: 26.01.2017
- * Time: 18:17
- *
- * Notes: Contains SendPerson Class
- */
-
+namespace error08\DHL;
 use stdClass;
-
-/**
- * Class SendPerson
- *
- * @package Petschko\DHL
- */
 abstract class SendPerson extends Address {
 	/**
 	 * Name of the SendPerson (Can be a Company-Name too!)

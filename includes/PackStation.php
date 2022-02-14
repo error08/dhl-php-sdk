@@ -1,23 +1,7 @@
 <?php
 
-namespace Petschko\DHL;
-
-/**
- * Author: Peter Dragicevic [peter@petschko.org]
- * Authors-Website: https://petschko.org/
- * Date: 17.03.2017
- * Time: 12:09
- *
- * Notes: Contains the PackStation class
- */
-
+namespace error08\DHL;
 use stdClass;
-
-/**
- * Class PackStation
- *
- * @package Petschko\DHL
- */
 class PackStation extends Receiver {
 	/**
 	 * Contains the Post-Number

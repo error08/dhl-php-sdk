@@ -1,23 +1,7 @@
 <?php
 
-namespace Petschko\DHL;
-
-/**
- * Author: Peter Dragicevic [peter@petschko.org]
- * Authors-Website: https://petschko.org/
- * Date: 26.01.2017
- * Time: 15:04
- *
- * Notes: Contains all Version-Specific Functions
- */
-
+namespace error08\DHL;
 use stdClass;
-
-/**
- * Class Version
- *
- * @package Petschko\DHL
- */
 abstract class Version {
 	/**
 	 * Current-Version

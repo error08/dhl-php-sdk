@@ -1,23 +1,7 @@
 <?php
 
-namespace Petschko\DHL;
-
-/**
- * Author: Peter Dragicevic [peter@petschko.org]
- * Authors-Website: https://petschko.org/
- * Date: 28.01.2017
- * Time: 19:17
- *
- * Notes: Contains the Receiver class
- */
-
+namespace error08\DHL;
 use stdClass;
-
-/**
- * Class Receiver
- *
- * @package Petschko\DHL
- */
 class Receiver extends SendPerson {
 	/**
 	 * Returns a Class for the DHL-SendPerson

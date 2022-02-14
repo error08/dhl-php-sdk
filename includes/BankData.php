@@ -1,23 +1,7 @@
 <?php
 
-namespace Petschko\DHL;
-
-/**
- * Author: Peter Dragicevic [peter@petschko.org]
- * Authors-Website: https://petschko.org/
- * Date: 26.01.2017
- * Time: 20:14
- *
- * Notes: Contains BankData Class
- */
-
+namespace error08\DHL;
 use stdClass;
-
-/**
- * Class BankData
- *
- * @package Petschko\DHL
- */
 class BankData {
 	/**
 	 * Name of the Account-Owner

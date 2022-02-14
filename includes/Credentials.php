@@ -1,21 +1,6 @@
 <?php
 
-namespace Petschko\DHL;
-
-/**
- * Author: Peter Dragicevic [peter@petschko.org]
- * Authors-Website: https://petschko.org/
- * Date: 15.09.2016
- * Time: 14:26
- *
- * Notes: Contains the Credentials class
- */
-
-/**
- * Class Credentials
- *
- * @package Petschko\DHL
- */
+namespace error08\DHL;
 class Credentials {
 	// Test-Type Constants
 	/**
@@ -43,13 +28,6 @@ class Credentials {
 	 * DHL Business-API Test-User-Password
 	 */
 	const DHL_BUSINESS_TEST_USER_PASSWORD = 'pass';
-
-	/**
-	 * DHL Business-API Test-EKP
-	 *
-	 * @deprecated - Typo in name...
-	 */
-	const DHL_BUSINESS_TEST_EPK = '2222222222'; // Still in here for backward compatibility
 
 	/**
 	 * DHL Business-API Test-EKP
